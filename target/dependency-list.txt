@@ -1,0 +1,8 @@
+
+The following files have been resolved:
+   org.apache.pdfbox:pdfbox:jar:2.0.27:compile[36m -- module org.apache.pdfbox[0;1m [auto][m
+   org.apache.pdfbox:fontbox:jar:2.0.27:compile[36m -- module org.apache.fontbox[0;1m [auto][m
+   commons-logging:commons-logging:jar:1.2:compile[36m -- module commons.logging[0;1;33m (auto)[m
+   org.apache.pdfbox:pdfbox-tools:jar:2.0.27:compile[36m -- module org.apache.pdfbox.tools[0;1m [auto][m
+   org.apache.pdfbox:pdfbox-debugger:jar:2.0.27:compile[36m -- module org.apache.pdfbox.debugger[0;1m [auto][m
+
