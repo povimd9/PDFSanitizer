@@ -50,7 +50,7 @@
                         <properties>
                             <property>
                                 <name>java8.home</name>
-                                <value>${env.JAVA8_HOME}</value>
+                                <value>${env.JAVA_HOME}</value>
                             </property>
                             <property>
                                 <name>java11.home</name>
