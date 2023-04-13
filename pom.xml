@@ -35,20 +35,6 @@
     <build>
         <finalName>pdfsanitizer</finalName>
         <plugins>
-            <!-- Set the JAVA_HOME environment variable to the JDK home directory -->
-           <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>properties-maven-plugin</artifactId>
-                <version>1.1.0</version>
-                <executions>
-                    <execution>
-                    <id>java-home-placeholder</id>
-                      <goals>
-                          <goal>set-system-properties</goal>
-                      </goals>
-                    </execution>
-                </executions>
-            </plugin>
             <!-- Set a JDK compiler level -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
