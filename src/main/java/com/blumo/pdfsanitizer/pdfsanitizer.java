@@ -16,22 +16,18 @@ public class pdfsanitizer {
 
     public static void main(String[] args) throws IOException {
         String logMsg;
-        System.out.println("Starting PDFSanitizer");
 
         if (args.length == 0) {
             System.out.println("Error: No PDF file specified");
-            System.out.println();
             System.exit(1);
         }
 
         String doCleanPdfResults = doCleanPdf(args[0]);
         if (doCleanPdfResults.startsWith("Error")) {
             System.out.println(doCleanPdfResults);
-            System.out.println();
             System.exit(1);
         }
         System.out.println(doCleanPdfResults);
-        System.out.println();
         System.exit(0);
     }
 
