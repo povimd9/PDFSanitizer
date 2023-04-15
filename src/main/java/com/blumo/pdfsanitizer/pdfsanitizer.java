@@ -71,6 +71,12 @@ public class pdfsanitizer {
         }
     }
 
+    /**
+     * @author Muhammed Demirbaş
+     * @param doc
+     * @param imagePath
+     * @throws IOException
+     */
     private static void addImageAsNewPage(PDDocument doc, String imagePath) throws IOException {
         try {
             PDImageXObject image          = PDImageXObject.createFromFile(imagePath, doc);
