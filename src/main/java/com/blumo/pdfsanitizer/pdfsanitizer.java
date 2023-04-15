@@ -2,7 +2,6 @@ package com.blumo.pdfsanitizer;
 
 import java.io.*;
 import java.nio.file.Files;
-import java.util.logging.Logger;
 import java.awt.image.BufferedImage;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -15,22 +14,25 @@ import org.apache.pdfbox.tools.imageio.ImageIOUtil;
 
 public class pdfsanitizer {
 
-    private static Logger logger = Logger.getLogger(pdfsanitizer.class.getName());
-
     public static void main(String[] args) throws IOException {
         String logMsg;
-        logger.info("Starting PDFSanitizer");
+        System.out.println("Starting PDFSanitizer");
+
         if (args.length == 0) {
-            logger.severe("Error: No PDF file specified");
             System.out.println("Error: No PDF file specified");
-            return;
+            System.out.println();
+            System.exit(1);
         }
-        logMsg = String.format("Starting PDFSanitizer: %s", args[0]);
-        logger.info(logMsg);
+
         String doCleanPdfResults = doCleanPdf(args[0]);
-        logMsg = String.format("Finished PDFSanitizer: %s", doCleanPdfResults);
-        logger.info(logMsg);
+        if (doCleanPdfResults.startsWith("Error")) {
+            System.out.println(doCleanPdfResults);
+            System.out.println();
+            System.exit(1);
+        }
         System.out.println(doCleanPdfResults);
+        System.out.println();
+        System.exit(0);
     }
 
     private static String doCleanPdf(String filename) throws IOException {
@@ -49,12 +51,8 @@ public class pdfsanitizer {
             }
             document.close();
             String outputFilename = filename.replaceAll(".pdf", "_clean.pdf");
-            String logMsg = String.format("Success: Original PDF to Images, trying to save to: %s", outputFilename);
-            logger.info(logMsg);
             return combineImagesIntoPDF(outputFilename, imageFileList);
         } catch (IOException e) {
-            String logMsg = String.format("Error: Failed to extract riginal PDF to Images: %s", e.getMessage());
-            logger.severe(logMsg);
             return "Error: " + e.getMessage();
         }
     }
@@ -65,12 +63,10 @@ public class pdfsanitizer {
                 addImageAsNewPage(targetDoc, input);
             }
             targetDoc.save(pdfPath);
-            String logMsg = String.format("Success: combining images to PDF: %s", pdfPath);
-            logger.info(logMsg);
-            return "Success: " + pdfPath;
+            File savedFile = new File(pdfPath);
+            String absolutePath = savedFile.getAbsolutePath();
+            return "Success: " + absolutePath;
         } catch (IOException e) {
-            String logMsg = String.format("Error: combining images to PDF: %s", e.getMessage());
-            logger.severe(logMsg);
             return "Error: " + e.getMessage();
         }
     }
@@ -95,12 +91,10 @@ public class pdfsanitizer {
             try (PDPageContentStream contents = new PDPageContentStream(doc, page)) {
                 contents.drawImage(image, x, y, scaledWidth, scaledHeight);
             }
-            String logMsg = String.format("Success: adding image %s to PDF", imagePath);
-            logger.info(logMsg);
             Files.deleteIfExists(new File(imagePath).toPath());
         } catch (IOException e) {
             String logMsg = String.format("Error: adding image %s to PDF: %s", imagePath, e.getMessage());
-            logger.severe(logMsg);
+            System.out.println(logMsg);
             throw new IOException(logMsg);
         }
     }
